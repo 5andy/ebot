@@ -34,9 +34,9 @@
   <script src="https://code.jquery.com/jquery-1.12.3.min.js"></script>
   <script type="text/javascript">
     $(document).ready(function(){
-      $("#7on").click(function(){
+      $("#17on").click(function(){
         var a = new XMLHttpRequest();
-        a.open("GET","7on.php");
+        a.open("GET","17on.php");
         a.onreadystatechange=function(){
           if(a.readyState==4){
             if(a.status == 200){
@@ -47,9 +47,9 @@
         a.send();
       });
 
-      $("#7off").click(function(){
+      $("#17off").click(function(){
                                 var a = new XMLHttpRequest();
-                                a.open("GET","7off.php");
+                                a.open("GET","17off.php");
                                 a.onreadystatechange=function(){
                                         if(a.readyState==4){
                                                 if(a.status == 200){
@@ -60,65 +60,9 @@
                                 a.send();
                         });
 
-
-                        $("#1on").click(function(){
-                          var a = new XMLHttpRequest();
-                          a.open("GET","1on.php");
-                          a.onreadystatechange=function(){
-                            if(a.readyState==4){
-                              if(a.status == 200){
-                              }
-                              else alert("HTTP ERROR");
-                            }
-                          }
-                          a.send();
-                        });
-
-                        $("#1off").click(function(){
-                                                  var a = new XMLHttpRequest();
-                                                  a.open("GET","1off.php");
-                                                  a.onreadystatechange=function(){
-                                                          if(a.readyState==4){
-                                                                  if(a.status == 200){
-                                                                  }
-                                                                  else alert("HTTP ERROR");
-                                                          }
-                                                  }
-                                                  a.send();
-                                          });
-
-
-                                          $("#0on").click(function(){
-                                            var a = new XMLHttpRequest();
-                                            a.open("GET","0on.php");
-                                            a.onreadystatechange=function(){
-                                              if(a.readyState==4){
-                                                if(a.status == 200){
-                                                }
-                                                else alert("HTTP ERROR");
-                                              }
-                                            }
-                                            a.send();
-                                          });
-
-                                          $("#0off").click(function(){
-                                                                    var a = new XMLHttpRequest();
-                                                                    a.open("GET","0off.php");
-                                                                    a.onreadystatechange=function(){
-                                                                            if(a.readyState==4){
-                                                                                    if(a.status == 200){
-                                                                                    }
-                                                                                    else alert("HTTP ERROR");
-                                                                            }
-                                                                    }
-                                                                    a.send();
-                                                            });
-
-
-
-      $("#2on").click(function(){
+      $("#18on").click(function(){
                                 var a = new XMLHttpRequest();
-                                a.open("GET","2on.php");
+                                a.open("GET","18on.php");
                                 a.onreadystatechange=function(){
                                         if(a.readyState==4){
                                                 if(a.status == 200){
@@ -128,9 +72,9 @@
                                 }
                                 a.send();
                         });
-                        $("#2off").click(function(){
+                        $("#18off").click(function(){
                                 var a = new XMLHttpRequest();
-                                a.open("GET","2off.php");
+                                a.open("GET","18off.php");
                                 a.onreadystatechange=function(){
                                         if(a.readyState==4){
                                                 if(a.status == 200){
@@ -267,14 +211,10 @@ reload_img();
         ================================================== -->
         <center>
           <div><img id="mjpeg_dest" /></div>
-          <button type="button" id="0on">a</button>
-          <button type="button" id="0off">b</button><br>
-          <button type="button" id="1on">c</button>
-          <button type="button" id="1off">d</button><br>
-          <button type="button" id="2on">e</button>
-          <button type="button" id="2off">f</button><br>
-          <button type="button" id="7on">g</button>
-          <button type="button" id="7off">h</button><br>
+          <button type="button" id="17on">Green on</button>
+          <button type="button" id="17off">Green off</button><br>
+          <button type="button" id="18on">Red on</button>
+          <button type="button" id="18off">Red off</button><br>
         </center>
 
 				<div class="entry-content">
