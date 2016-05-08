@@ -85,7 +85,56 @@
                                 a.send();
                         });
 
+                        $("#27on").click(function(){
+                          var a = new XMLHttpRequest();
+                          a.open("GET","27on.php");
+                          a.onreadystatechange=function(){
+                            if(a.readyState==4){
+                              if(a.status == 200){
+                              }
+                              else alert("HTTP ERROR");
+                            }
+                          }
+                          a.send();
+                        });
 
+                        $("#27off").click(function(){
+                                                  var a = new XMLHttpRequest();
+                                                  a.open("GET","27off.php");
+                                                  a.onreadystatechange=function(){
+                                                          if(a.readyState==4){
+                                                                  if(a.status == 200){
+                                                                  }
+                                                                  else alert("HTTP ERROR");
+                                                          }
+                                                  }
+                                                  a.send();
+                                          });
+
+                        $("#22on").click(function(){
+                                                  var a = new XMLHttpRequest();
+                                                  a.open("GET","22on.php");
+                                                  a.onreadystatechange=function(){
+                                                          if(a.readyState==4){
+                                                                  if(a.status == 200){
+                                                                  }
+                                                                  else alert("HTTP ERROR");
+                                                          }
+                                                  }
+                                                  a.send();
+                                          });
+                                          $("#22off").click(function(){
+                                                  var a = new XMLHttpRequest();
+                                                  a.open("GET","22off.php");
+                                                  a.onreadystatechange=function(){
+                                                          if(a.readyState==4){
+                                                                  if(a.status == 200){
+                                                                  }
+                                                                  else alert("HTTP ERROR");
+                                                          }
+                                                  }
+                                                  a.send();
+                                          });
     });
 
 
@@ -211,10 +260,14 @@ reload_img();
         ================================================== -->
         <center>
           <div><img id="mjpeg_dest" /></div>
-          <button type="button" id="17on">Green on</button>
-          <button type="button" id="17off">Green off</button><br>
-          <button type="button" id="18on">Red on</button>
-          <button type="button" id="18off">Red off</button><br>
+          <button type="button" id="17on">1</button>
+          <button type="button" id="17off">2</button><br>
+          <button type="button" id="18on">3</button>
+          <button type="button" id="18off">4</button><br>
+          <button type="button" id="27on">5</button>
+          <button type="button" id="27off">6</button><br>
+          <button type="button" id="22on">7</button>
+          <button type="button" id="22off">8</button><br>
         </center>
 
 				<div class="entry-content">
