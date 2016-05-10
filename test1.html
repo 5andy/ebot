@@ -47,7 +47,7 @@
   $(document).ready(function () {
       $('body').on('keydown keyup',function(e){
         var color = e.type=="keydown" ? 'red' : 'white' ;
-        if(e.which==116){
+        if(e.which==82){
             $(this).css({background: color});
         }
       });
