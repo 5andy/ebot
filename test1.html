@@ -34,10 +34,11 @@
   <script src="https://code.jquery.com/jquery-1.12.3.min.js"></script>
   <script type="text/javascript">
 
+
   $(document).ready(function () {
       $('body').on('keydown keyup',function(e){
         var color = e.type=="keydown" ? 'red' : 'white' ;
-        if(e.which==82){
+        if(e.which==84){
             $(this).css({background: color});
         }
       });
