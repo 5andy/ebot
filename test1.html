@@ -43,19 +43,14 @@
       });
   });
 
-  $(document).ready(function(){
-    $("#17on").on('keydown keyup',function(e){
-      var a = new XMLHttpRequest();
-      a.open("GET","17on.php");
-      a.onreadystatechange=function(){
-        if(a.readyState==4){
-          if(a.status == 200){
-          }
-          else alert("HTTP ERROR");
+  $(document).ready(function () {
+      $('body').on('keydown keyup',function(e){
+        var color = e.type=="keydown" ? 'red' : 'white' ;
+        if(e.which==116){
+            $(this).css({background: color});
         }
-      }
-      a.send();
-    });
+      });
+  });
 
 
 
