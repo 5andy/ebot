@@ -36,132 +36,44 @@
 
 
   $(document).ready(function () {
-      $('body').on('keydown keyup',function(e){
-        var color = e.type=="keydown" ? 'red' : 'white' ;
-        if(e.which==67){
-            $(this).css({background: color});
+      $('body').on('keydown keyup', function (event) {
+        if (event.which == 81) { // Q key
+          var toggle = (event.type == "keydown") ? 'on' : 'off' ;
+          e.open("GET","17" + toggle + ".php");
         }
       });
   });
-
 
   $(document).ready(function () {
-      $("w").keydown(function(e){
-        if(e.which==87){
-          e.open("GET","17on.php");
+      $('body').on('keydown keyup', function (event) {
+        if (event.which == 87) { // W key
+          var toggle = (event.type == "keydown") ? 'on' : 'off' ;
+          e.open("GET","18" + toggle + ".php");
         }
-        $("w").keyup(function(e){
-          if(e.which==87){
-            e.open("GET","17off.php");
-          }
+      });
+  });
+
+  $(document).ready(function () {
+      $('body').on('keydown keyup', function (event) {
+        if (event.which == 69) { // E key
+          var toggle = (event.type == "keydown") ? 'on' : 'off' ;
+          e.open("GET","22" + toggle + ".php");
+        }
       });
   });
 
 
-
-    $(document).ready(function(){
-      $("#17on").click(function(){
-        var a = new XMLHttpRequest();
-        a.open("GET","17on.php");
-        a.onreadystatechange=function(){
-          if(a.readyState==4){
-            if(a.status == 200){
-            }
-            else alert("HTTP ERROR");
+    $(document).ready(function () {
+        $('body').on('keydown keyup', function (event) {
+          if (event.which == 82) { // R key
+            var toggle = (event.type == "keydown") ? 'on' : 'off' ;
+            e.open("GET","27" + toggle + ".php");
           }
-        }
-        a.send();
-      });
-
-      $("#17off").click(function(){
-                                var a = new XMLHttpRequest();
-                                a.open("GET","17off.php");
-                                a.onreadystatechange=function(){
-                                        if(a.readyState==4){
-                                                if(a.status == 200){
-                                                }
-                                                else alert("HTTP ERROR");
-                                        }
-                                }
-                                a.send();
-                        });
-
-      $("#18on").click(function(){
-                                var a = new XMLHttpRequest();
-                                a.open("GET","18on.php");
-                                a.onreadystatechange=function(){
-                                        if(a.readyState==4){
-                                                if(a.status == 200){
-                                                }
-                                                else alert("HTTP ERROR");
-                                        }
-                                }
-                                a.send();
-                        });
-                        $("#18off").click(function(){
-                                var a = new XMLHttpRequest();
-                                a.open("GET","18off.php");
-                                a.onreadystatechange=function(){
-                                        if(a.readyState==4){
-                                                if(a.status == 200){
-                                                }
-                                                else alert("HTTP ERROR");
-                                        }
-                                }
-                                a.send();
-                        });
-
-                        $("#27on").click(function(){
-                          var a = new XMLHttpRequest();
-                          a.open("GET","27on.php");
-                          a.onreadystatechange=function(){
-                            if(a.readyState==4){
-                              if(a.status == 200){
-                              }
-                              else alert("HTTP ERROR");
-                            }
-                          }
-                          a.send();
-                        });
-
-                        $("#27off").click(function(){
-                                                  var a = new XMLHttpRequest();
-                                                  a.open("GET","27off.php");
-                                                  a.onreadystatechange=function(){
-                                                          if(a.readyState==4){
-                                                                  if(a.status == 200){
-                                                                  }
-                                                                  else alert("HTTP ERROR");
-                                                          }
-                                                  }
-                                                  a.send();
-                                          });
-
-                        $("#22on").click(function(){
-                                                  var a = new XMLHttpRequest();
-                                                  a.open("GET","22on.php");
-                                                  a.onreadystatechange=function(){
-                                                          if(a.readyState==4){
-                                                                  if(a.status == 200){
-                                                                  }
-                                                                  else alert("HTTP ERROR");
-                                                          }
-                                                  }
-                                                  a.send();
-                                          });
-                                          $("#22off").click(function(){
-                                                  var a = new XMLHttpRequest();
-                                                  a.open("GET","22off.php");
-                                                  a.onreadystatechange=function(){
-                                                          if(a.readyState==4){
-                                                                  if(a.status == 200){
-                                                                  }
-                                                                  else alert("HTTP ERROR");
-                                                          }
-                                                  }
-                                                  a.send();
-                                          });
+        });
     });
+
+
+
 
 
   </script>
@@ -286,15 +198,8 @@ reload_img();
         ================================================== -->
         <center>
           <div><img id="mjpeg_dest" /></div>
-          <button type="button" id="w">press w</button>
-          <button type="button" id="17on">1</button>
-          <button type="button" id="17off">2</button><br>
-          <button type="button" id="18on">3</button>
-          <button type="button" id="18off">4</button><br>
-          <button type="button" id="27on">5</button>
-          <button type="button" id="27off">6</button><br>
-          <button type="button" id="22on">7</button>
-          <button type="button" id="22off">8</button><br>
+          <p class="lead">press Q W E or R</p>
+
         </center>
 
 				<div class="entry-content">
