@@ -45,6 +45,15 @@
   });
 
 
+  $(document).ready(function () {
+      $("17on.php").on('keydown keyup',function(e){
+        var a = e.type=="keydown" ? "17on.php" : "17off.php" ;
+        if(e.which==87){
+        a.open("GET","17on.php":"17off.php");
+        a.send();
+        }
+      });
+  });
 
 
 
