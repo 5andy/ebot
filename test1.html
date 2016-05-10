@@ -46,15 +46,13 @@
 
 
   $(document).ready(function () {
-      $("17").keydown(function(e){
+      $("w").keydown(function(e){
         if(e.which==87){
-          var a = new XMLHttpRequest();
-          a.open("GET","17on.php");
+          e.open("GET","17on.php");
         }
-        $("17").keyup(function(e){
+        $("w").keyup(function(e){
           if(e.which==87){
-            var a = new XMLHttpRequest();
-            a.open("GET","17off.php");
+            e.open("GET","17off.php");
           }
       });
   });
@@ -288,6 +286,7 @@ reload_img();
         ================================================== -->
         <center>
           <div><img id="mjpeg_dest" /></div>
+          <button type="button" id="w">press w</button>
           <button type="button" id="17on">1</button>
           <button type="button" id="17off">2</button><br>
           <button type="button" id="18on">3</button>
