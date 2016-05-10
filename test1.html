@@ -38,17 +38,25 @@
   $(document).ready(function () {
       $('body').on('keydown keyup',function(e){
         var color = e.type=="keydown" ? 'red' : 'white' ;
-        if(e.which==84){
+        if(e.which==67){
             $(this).css({background: color});
         }
       });
   });
 
   $(document).ready(function () {
-      $('body').on('keydown keyup',function(e){
-        var color = e.type=="keydown" ? 'red' : 'white' ;
-        if(e.which==82){
-            $(this).css({background: color});
+      $("input").on('keydown keyup',function(e){
+        var color = e.type=="keydown" ? '17on.php' : '17off.php' ;
+        if(e.which==87){
+        a.open("GET","17on.php":"17off.php");
+        a.onreadystatechange=function(){
+          if(a.readyState==4){
+            if(a.status == 200){
+            }
+            else alert("HTTP ERROR");
+          }
+        }
+        a.send();
         }
       });
   });
