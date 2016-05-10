@@ -35,15 +35,35 @@
   <script type="text/javascript">
 
   $(document).ready(function () {
-
       $('body').on('keydown keyup',function(e){
         var color = e.type=="keydown" ? 'red' : 'white' ;
         if(e.which==82){
             $(this).css({background: color});
         }
       });
-
   });
+
+  $(document).ready(function () {
+      $('body').on('keydown keyup',function(e){
+        var a = e.type=="keydown" ? 'red' : 'white' ;
+        if(e.which==82){
+          $("#17on").click(function(){
+            var a = new XMLHttpRequest();
+            a.open("GET","17on.php");
+            a.onreadystatechange=function(){
+              if(a.readyState==4){
+                if(a.status == 200){
+                }
+                else alert("HTTP ERROR");
+              }
+            }
+            a.send();
+          });
+        }
+      });
+  });
+
+
 
     $(document).ready(function(){
       $("#17on").click(function(){
