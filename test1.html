@@ -36,23 +36,11 @@
 
   $(document).ready(function () {
 
-      $('body').on('keydown keyup', function( e ) {
-
-        var key = e.which;
-        var io  = e.type=="keydown" ? 0 : 1; // "0"if keydown; "1" if keyup
-        var keyAction = {                    // Object to store our stuff
-  //  keyCode : [(0)KEYDOWN, (1)KEYUP]
-          82  : ['red' ,'white'],            // R key
-          66  : ['blue','white']             // B key  (last one without comma!)
-        };
-        var propObj = {};                    // Object to store property + value for jQuery methods
-        var keyArr = keyAction[key];
-
-        if(typeof keyArr != 'undefined') {   // Test keyArr (82, 66) is returned/populated to prevent errors
-           propObj.background = keyAction[key][io];   // Created the jQ Method's object e.g: {background:"red"}
-           $(this).css(propObj);             // Finally create / use
+      $('body').on('keydown keyup',function(e){
+        var color = e.type=="keydown" ? 'red' : 'white' ;
+        if(e.which==82){
+            $(this).css({background: color});
         }
-
       });
 
   });
