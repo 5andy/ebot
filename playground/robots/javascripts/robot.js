@@ -14,75 +14,61 @@
     'use strict';
     $.robotUtil = function (element, options) {
         var defaults = {
-            pins: {
-                left: {
-                    fwd: 27,
-                    back: 22
-                },
-                right: {
-                    fwd: 17,
-                    back: 18
-                }
+            keys : {
+                left : 37,
+                right : 39,
+                forward : 38,
+                reverse : 40,
+                stop : 13
             },
-            keys: {
-                left: 37,
-                right: 39,
-                forward: 38,
-                reverse: 40,
-                stop: 13
-            },
-            url: 'http://192.168.1.113/ebot/',
-            script: '',
-            getStatus: function () {
+            url : '/',
+            script : '',
+            getStatus : function () {
                 return 'Status';
             }
-        },
-        plugin = this,
-        $element = $(element),
+        }, plugin = this, $element = $(element),
 
         log = function (msg, debug) {
-            if (!debug) {
+            if ( !debug) {
                 console.log(msg);
             }
         },
-        
+
         running = false,
 
-        doRobot = function (pin, enable) {
-            var toggle = (enable) ? 'on' : 'off',
-                    ajaxUrl = plugin.settings.url;
-            ajaxUrl = (plugin.settings.script) ? ajaxUrl + plugin.settings.script : ajaxUrl + pin + toggle + '.php';
-            if (!running) {
-                log('robot url: ' + ajaxUrl);
-                running = true;
-                $.ajax({
-                    url: ajaxUrl,
-                    async: false,
-                    //dataType: 'json',
-                    //data: {
-                    //    toggle: enable,
-                    //    pin: pin
-                    //},
-                    beforeSend: function () {
-                        log('Sending...', true);
-                    },
-                    success: function () {
-                        log('sucessful ajax...', true);
-                    },
-                    statusCode: {
-                        404: function() {
-                            log('Page not Found! ' + ajaxUrl);
-                        }
-                    },
-                    error: function () {
-                        log('ERROR ajax... ' + ajaxUrl);
-                        running = false;
+        doRobot = function (command) {
+            var ajaxUrl = plugin.settings.url + plugin.settings.script,
+                json = null;
+            log('robot url: ' + ajaxUrl, true);
+            $.ajax({
+                url : ajaxUrl,
+                type : 'get',
+                data : {
+                    ajax : 1,
+                    type : 'car',
+                    cmd : command
+                },
+                beforeSend : function () {
+                    log('Sending...', true);
+                },
+                success : function (response) {
+                    log('sucessful ajax...', true);
+                    json = $.parseJSON(response); // create an object with the key of the array
+                    log(json.content); // where content is the key of array that you want, $response['content']
+                },
+                statusCode : {
+                    404 : function () {
+                        log('Page not Found! ' + ajaxUrl);
                     }
-                }).done(function () {
-                    log('Done Ajax', true);
-                    running = false;
-                });
-            }
+                },
+                error : function (response) {
+                    log('ERROR ajax... ' + ajaxUrl);
+                    json = $.parseJSON(response);
+                    log(json.error);
+                }
+            }).done(function () {
+                log('Done Ajax', true);
+            });
         },
 
         setupListeners = function () {
@@ -91,23 +77,33 @@
                 log('Key press: ' + event.which, true);
                 if (event.which === plugin.settings.keys.stop) {
                     event.preventDefault();
-                    plugin.stop();
+                    if (running) {
+                        running = false;
+                        plugin.stop();
+                    } else {
+                        running = true;
+                        plugin.start();
+                    }
                 }
             });
             $element.keydown(function (event) {
-                log('Key down: ' + event.which, true);
-                if (event.which === plugin.settings.keys.forward) {
-                    event.preventDefault();
-                    plugin.forward();
-                } else if (event.which === plugin.settings.keys.left) {
-                    event.preventDefault();
-                    plugin.left();
-                } else if (event.which === plugin.settings.keys.right) {
-                    event.preventDefault();
-                    plugin.right();
-                } else if (event.which === plugin.settings.keys.reverse) {
-                    event.preventDefault();
-                    plugin.reverse();
+                if (running) {
+                    log('Key down: ' + event.which, true);
+                    if (event.which === plugin.settings.keys.forward) {
+                        event.preventDefault();
+                        plugin.forward();
+                    } else if (event.which === plugin.settings.keys.left) {
+                        event.preventDefault();
+                        plugin.left();
+                    } else if (event.which === plugin.settings.keys.right) {
+                        event.preventDefault();
+                        plugin.right();
+                    } else if (event.which === plugin.settings.keys.reverse) {
+                        event.preventDefault();
+                        plugin.reverse();
+                    }
+                } else {
+                    log('Key down ignored. Robot not started! <<PRESS ENTER>>', true);
                 }
             });
         };
@@ -121,42 +117,34 @@
             setupListeners();
         };
 
+        plugin.start = function () {
+            log('Started...');
+            doRobot('start');
+        };
+
         plugin.right = function () {
             log('Right...');
-            plugin.cleanup();
-            doRobot(plugin.settings.pins.right.fwd, true);
+            doRobot('right');
         };
 
         plugin.left = function () {
             log('Left...');
-            plugin.cleanup();
-            doRobot(plugin.settings.pins.left.fwd, true);
+            doRobot('left', true);
         };
 
         plugin.forward = function () {
             log('Fwd...');
-            plugin.cleanup();
-            doRobot(plugin.settings.pins.right.fwd, true);
-            doRobot(plugin.settings.pins.left.fwd, true);
+            doRobot('forward');
         };
 
         plugin.reverse = function () {
             log('Reverse...');
-            plugin.cleanup();
-            doRobot(plugin.settings.pins.right.back, true);
-            doRobot(plugin.settings.pins.left.back, true);
+            doRobot('back');
         };
 
         plugin.stop = function () {
-            log('Stop...');
-            plugin.cleanup();
-        };
-
-        plugin.cleanup = function () {
-            doRobot(plugin.settings.pins.right.back, false);
-            doRobot(plugin.settings.pins.left.back, false);
-            doRobot(plugin.settings.pins.right.fwd, false);
-            doRobot(plugin.settings.pins.left.fwd, false);
+            log('Stopped...');
+            doRobot('stop');
         };
 
         plugin.init();
@@ -173,6 +161,6 @@
 }(jQuery, console));
 
 $(window).robotUtil({
-    url: 'http://localhost/dirtybeach.github.io/playground/robots/',
-    script: 'index.php'
+    url : '',
+    script : 'index.php'
 });
