@@ -58,13 +58,13 @@ class robots {
         } else if ($this->getCommand() === 'stop') {
             $this->stop();
         } else if ($this->getCommand() === 'left') {
-            $this->initDrive();
+            $this->left();
         } else if ($this->getCommand() === 'right') {
-            $this->initDrive();
+            $this->right();
         } else if ($this->getCommand() === 'forward') {
-            $this->initDrive();
+            $this->forward();
         } else if ($this->getCommand() === 'back') {
-            $this->initDrive();
+            $this->back();
         }
     }
 

@@ -37,37 +37,26 @@
         running = false,
 
         doRobot = function (command) {
-            var ajaxUrl = plugin.settings.url + plugin.settings.script,
-                json = null;
+            var that = this, ajaxUrl = plugin.settings.url + plugin.settings.script, json = null;
             log('robot url: ' + ajaxUrl, true);
-            $.ajax({
+            var jqxhr = $.ajax({
                 url : ajaxUrl,
                 type : 'get',
+                dataType : 'json',
                 data : {
-                    ajax : 1,
+                    ajax : '1',
                     type : 'car',
                     cmd : command
                 },
                 beforeSend : function () {
                     log('Sending...', true);
-                },
-                success : function (response) {
-                    log('sucessful ajax...', true);
-                    json = $.parseJSON(response); // create an object with the key of the array
-                    log(json.content); // where content is the key of array that you want, $response['content']
-                },
-                statusCode : {
-                    404 : function () {
-                        log('Page not Found! ' + ajaxUrl);
-                    }
-                },
-                error : function (response) {
-                    log('ERROR ajax... ' + ajaxUrl);
-                    json = $.parseJSON(response);
-                    log(json.error);
                 }
-            }).done(function () {
-                log('Done Ajax', true);
+            }).done(function (data, textStatus, jqXHR ) {
+                log('Done Ajax ' + textStatus);
+                //that.json = response;
+                // log(json.content);
+            }).fail(function (jqXHR, textStatus, errorThrown ) {
+                log('ERROR ajax...' + textStatus);
             });
         },
 
@@ -103,7 +92,7 @@
                         plugin.reverse();
                     }
                 } else {
-                    log('Key down ignored. Robot not started! <<PRESS ENTER>>', true);
+                    log('Key down ignored. Robot not started! <<PRESS ENTER>>');
                 }
             });
         };
@@ -118,7 +107,7 @@
         };
 
         plugin.start = function () {
-            log('Started...');
+            log('Started... Press <<PRESS ENTER>> to stop');
             doRobot('start');
         };
 
@@ -143,7 +132,7 @@
         };
 
         plugin.stop = function () {
-            log('Stopped...');
+            log('Stopped... Press <<PRESS ENTER>> to start again');
             doRobot('stop');
         };
 
