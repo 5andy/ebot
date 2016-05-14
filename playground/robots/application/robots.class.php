@@ -17,16 +17,19 @@ class robots {
         )
     );
     var $command = null;
-    var $data = 'test';
+    var $data = array('result' => 'test');
     var $error = array(
         'error' => 'Error',
         'message' => 'TODO',
     );
+    var $cmdOutput = array();
     var $isOK = true;
 
     public function robots($type = 'car') {
         if (isset($_GET['cmd']) && preg_match('/^(start|stop|left|right|forward|back)$/', $_GET['cmd'])) {
             $this->command = $_GET['cmd'];
+        } else {
+            $this->isOK = false;
         }
         $this->doTheRobot();
     }
@@ -38,7 +41,6 @@ class robots {
     private function getPins() {
         return $this->gpioPins;
     }
-
 
     private function getData() {
         return $this->data;
@@ -65,7 +67,10 @@ class robots {
             $this->forward();
         } else if ($this->getCommand() === 'back') {
             $this->back();
+        } else {
+            $this->isOK = false;
         }
+        $this->data = $this->cmdOutput;
     }
 
     public function getResponse() {
@@ -148,18 +153,18 @@ class robots {
     private function runCommand($pin, $enable = true) {
         # echo date("l jS \of F Y h:i:s A");
         if ($enable) {
-            system("gpio -g write $pin 1");
+            exec("gpio -g write $pin 1", $this->cmdOutput);
         } else {
-            system("gpio -g write $pin 0");
+            exec("gpio -g write $pin 0", $this->cmdOutput);
         }
     }
 
     private function startupCommand($pin) {
-        system("gpio -g mode $pin out");
+        exec("gpio -g mode $pin out", $this->cmdOutput);
     }
 
     private function cleanupCommand() {
-        system("gpio -g cleanup");
+        exec("gpio -g cleanup", $this->cmdOutput);
     }
 
 }
